@@ -1,0 +1,45 @@
+﻿.Goal{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: auto;
+    background: rgba(255,255,255, 0.5);
+    padding: 1rem;
+    box-sizing: border-box;
+    &__header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        overflow: hidden;
+        &Order{
+            width: 5%;
+        }
+        &Title{
+            width: 20%;
+        }
+        &Desc{
+            width: 45%;
+        }
+        &Date{
+            width: 15%;
+        }
+        &Order,&Title,&Desc,&Date{
+            overflow: hidden;
+            margin: 8px;
+        }
+    }
+
+    &__change{
+        width:200px;
+        background: none;
+        border: 0;
+        color: white;
+        text-transform: uppercase;
+        transition: opacity 0.2ms;
+        cursor: pointer;
+        &:hover{
+            opacity: 0.6;
+        }
+    }
+}
