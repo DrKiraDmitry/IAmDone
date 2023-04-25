@@ -3,9 +3,8 @@ import { MainPageStore } from "./MainPageStore";
 // import { RouteNames, Routes } from "src/routes";
 
 export class RootStore {
-    mainPageStore;
+    @observable mainPageStore = new MainPageStore();
     constructor() {
-        this.mainPageStore = new MainPageStore();
         makeAutoObservable(this);
     }
     // @observable routerStore = new RouterStore(this, Routes, new RouterState(RouteNames.notFound));

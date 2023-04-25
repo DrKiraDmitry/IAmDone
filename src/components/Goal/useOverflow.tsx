@@ -9,8 +9,6 @@ import React, { useEffect, useState } from "react";
 export const useOverflow = (Box?: number, Text?: number) => {
     const [Overflow, setOverflow] = useState(false);
 
-    console.log(Box, Text);
-
     useEffect(() => {
         if (typeof Box === "number" && typeof Text === "number") {
             if (Box < Text) return setOverflow(true);

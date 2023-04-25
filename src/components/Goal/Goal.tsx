@@ -1,8 +1,8 @@
 ﻿import React, { FC, useCallback, useRef, useState } from "react";
 import styles from "./styles/Goal.module.scss";
-import { GoalType } from "../../pages/MainPage/MainPage";
 import Marquee from "react-fast-marquee";
 import { useOverflow } from "./useOverflow";
+import { GoalType } from "../../stores/MainPageStore";
 
 const GoalString: FC<{ text: string | number; className: string }> = ({ text, className }) => {
     const Box = useRef<HTMLDivElement | null>(null);
@@ -23,7 +23,7 @@ const GoalString: FC<{ text: string | number; className: string }> = ({ text, cl
     );
 };
 
-export const Goal: FC<{ item: GoalType; order: number }> = ({ item, order }) => {
+export const Goal: FC<{ item: GoalType; order: number; change: () => void }> = ({ item, order, change }) => {
     return (
         <div className={styles.Goal} key={item.id}>
             <div className={styles.Goal__header}>
@@ -31,7 +31,9 @@ export const Goal: FC<{ item: GoalType; order: number }> = ({ item, order }) => 
                 <GoalString text={item.title} className={styles.Goal__headerTitle} />
                 <GoalString text={item.desc} className={styles.Goal__headerDesc} />
                 <GoalString text={item.date.toString()} className={styles.Goal__headerDate} />
-                <button className={styles.Goal__change}>Изменить</button>
+                <button className={styles.Goal__change} onClick={() => change()}>
+                    Изменить
+                </button>
             </div>
         </div>
     );

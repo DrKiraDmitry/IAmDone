@@ -1,41 +1,50 @@
-﻿import React, { FC, useEffect, useState } from "react";
+﻿import React, { useEffect } from "react";
 import styles from "./styles/MainPage.module.scss";
 import { Goal, GoalListHeader } from "../../components/Goal/Goal";
 import { CreateForm } from "../../components/CreateForm/CreateForm";
 import { useRootStore } from "../../utils/rootStoreUtils";
-import { observable } from "mobx";
+import { observer } from "mobx-react-lite";
+import { ModalEnum } from "../../stores/MainPageStore";
+import { ChangeForm } from "../../components/CreateForm/ChangeForm";
 
 const Header = () => {
+    const { mainPageStore: store } = useRootStore();
     return (
-        <header>
-            <button onClick={}></button>
+        <header className={styles.Header}>
+            <button onClick={() => store.modalSwitch(ModalEnum.new)}>Новая</button>
+            <button onClick={() => store.copy()}>Сохранить</button>
+            <button onClick={() => store.modalSwitch(ModalEnum.new)}>Загрузить</button>
         </header>
     );
 };
 
-const Modals = () => {
+const Modals = observer(() => {
+    const { mainPageStore: store } = useRootStore();
     return (
         <>
             {
                 {
                     [ModalEnum.new]: (
-                        <CreateForms callback={() => store.save()} onClose={() => setModal(ModalEnum.close)} />
+                        <CreateForm
+                            callback={(x) => store.save(x)}
+                            onClose={() => store.modalSwitch(ModalEnum.close)}
+                        />
                     ),
                     [ModalEnum.change]: (
-                        <CreateForm
-                            goals={goals}
-                            setGoals={(x) => setGoals(x)}
-                            onClose={() => setModal(ModalEnum.close)}
+                        <ChangeForm
+                            callback={(x) => store.change(x)}
+                            onClose={() => store.modalSwitch(ModalEnum.close)}
+                            data={store.goals.find((el) => el.id === store.chooseGoal)}
                         />
                     ),
                     [ModalEnum.close]: <></>,
-                }[modal]
+                }[store.modal]
             }
         </>
     );
-};
+});
 
-export const MainPage = observable(() => {
+export const MainPage = observer(() => {
     const { mainPageStore: store } = useRootStore();
 
     useEffect(() => {
@@ -44,11 +53,17 @@ export const MainPage = observable(() => {
 
     return (
         <div className={styles.MainPage}>
+            <Header />
             {store.goals && (
                 <div className={styles.GoalList}>
                     <GoalListHeader />
                     {store.goals.map((el, i) => (
-                        <Goal key={el.id} order={i + 1} item={el} />
+                        <Goal
+                            key={el.id}
+                            order={i + 1}
+                            item={el}
+                            change={() => store.modalSwitch(ModalEnum.change, el.id)}
+                        />
                     ))}
                 </div>
             )}

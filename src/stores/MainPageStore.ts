@@ -1,4 +1,5 @@
 ﻿import { action, makeAutoObservable, observable } from "mobx";
+import { CreateFormDataType } from "../components/CreateForm/CreateForm";
 
 export type GoalType = {
     title: string;
@@ -16,6 +17,7 @@ export enum ModalEnum {
 export class MainPageStore {
     @observable goals: GoalType[] = [];
     @observable modal: ModalEnum = ModalEnum.close;
+    @observable chooseGoal: string = "";
 
     constructor() {
         makeAutoObservable(this);
@@ -27,11 +29,23 @@ export class MainPageStore {
         this.goals = JSON.parse(local);
     }
 
-    @action modalSwitch(type: ModalEnum) {
+    @action modalSwitch(type: ModalEnum, id?: string) {
+        if (id) this.chooseGoal = id;
         this.modal = type;
     }
 
-    @action save(title: string, desc: string) {
+    copy() {
+        navigator.clipboard
+            .writeText(JSON.stringify(this.goals))
+            .then(() => {
+                console.log("Text copied to clipboard");
+            })
+            .catch((err) => {
+                console.error("Error in copying text: ", err);
+            });
+    }
+
+    @action save({ title, desc }: CreateFormDataType) {
         const data = {
             title,
             desc,
@@ -39,6 +53,18 @@ export class MainPageStore {
             id: `${new Date()}__${title}`,
         };
         const newGoals = [data, ...this.goals];
+        localStorage.setItem("IamDone", JSON.stringify(newGoals));
+        this.goals = newGoals;
+        this.modalSwitch(ModalEnum.close);
+    }
+
+    @action
+    change({ title, desc }: CreateFormDataType) {
+        const data = {
+            title,
+            desc,
+        };
+        const newGoals = this.goals.map((el) => (el.id === this.chooseGoal ? { ...el, ...data } : el));
         localStorage.setItem("IamDone", JSON.stringify(newGoals));
         this.goals = newGoals;
         this.modalSwitch(ModalEnum.close);

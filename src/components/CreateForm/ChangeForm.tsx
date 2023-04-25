@@ -1,5 +1,6 @@
 ﻿import React, { FC, useState } from "react";
 import styles from "./styles/CreateForm.module.scss";
+import { GoalType } from "../../stores/MainPageStore";
 
 export type CreateFormDataType = {
     title: string;
@@ -9,11 +10,12 @@ export type CreateFormDataType = {
 type CreateFormType = {
     onClose: () => void;
     callback: (data: CreateFormDataType) => void;
+    data?: GoalType;
 };
 
-export const CreateForm: FC<CreateFormType> = ({ onClose, callback }) => {
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+export const ChangeForm: FC<CreateFormType> = ({ onClose, callback, data }) => {
+    const [title, setTitle] = useState(data?.title ?? "");
+    const [desc, setDesc] = useState(data?.desc ?? "");
 
     const save = () => {
         callback({ title, desc });
@@ -45,6 +47,9 @@ export const CreateForm: FC<CreateFormType> = ({ onClose, callback }) => {
                 </label>
             </div>
             <div className={styles.TaskContainer__bottom}>
+                <button className={styles.Button_save} onClick={() => save()}>
+                    Удалить
+                </button>
                 <button className={styles.Button_save} onClick={() => save()}>
                     Сохранить
                 </button>
