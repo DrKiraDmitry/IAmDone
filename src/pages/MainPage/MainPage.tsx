@@ -13,7 +13,6 @@ const Header = () => {
         <header className={styles.Header}>
             <button onClick={() => store.modalSwitch(ModalEnum.new)}>Новая</button>
             <button onClick={() => store.copy()}>Сохранить</button>
-            <button onClick={() => store.modalSwitch(ModalEnum.new)}>Загрузить</button>
         </header>
     );
 };

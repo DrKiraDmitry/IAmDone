@@ -1,5 +1,6 @@
 ﻿import { action, makeAutoObservable, observable } from "mobx";
 import { CreateFormDataType } from "../components/CreateForm/CreateForm";
+import { toast } from "react-toastify";
 
 export type GoalType = {
     title: string;
@@ -38,10 +39,10 @@ export class MainPageStore {
         navigator.clipboard
             .writeText(JSON.stringify(this.goals))
             .then(() => {
-                console.log("Text copied to clipboard");
+                toast.success("Скопирован в буфер обмена");
             })
             .catch((err) => {
-                console.error("Error in copying text: ", err);
+                toast.error("Не удалось скопировать в буфер обмена");
             });
     }
 
