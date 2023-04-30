@@ -11,8 +11,16 @@ const Header = () => {
     const { mainPageStore: store } = useRootStore();
     return (
         <header className={styles.Header}>
-            <button onClick={() => store.modalSwitch(ModalEnum.new)}>Новая</button>
-            <button onClick={() => store.copy()}>Сохранить</button>
+            <div>
+                <button onClick={() => store.modalSwitch(ModalEnum.new)}>Новая</button>
+                <button onClick={() => store.copy()}>Сохранить</button>
+            </div>
+            <div>
+                <button onClick={() => store.randomExp()}>Случайный Опыт</button>
+            </div>
+            <div>
+                <button onClick={() => store.copy()}>F.A.Q</button>
+            </div>
         </header>
     );
 };

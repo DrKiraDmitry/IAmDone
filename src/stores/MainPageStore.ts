@@ -35,6 +35,11 @@ export class MainPageStore {
         this.modal = type;
     }
 
+    randomExp() {
+        const getRandom = Math.floor(Math.random() * this.goals.length);
+        this.modalSwitch(ModalEnum.change, this.goals[getRandom].id);
+    }
+
     copy() {
         navigator.clipboard
             .writeText(JSON.stringify(this.goals))

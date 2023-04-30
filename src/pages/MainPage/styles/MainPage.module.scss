@@ -5,16 +5,27 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    margin-top: 6rem;
 }
 
 .GoalList{
-    margin-top: 6rem;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
 .Header{
-    position: fixed;
     padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    button{
+        background: rgba(255,255,255, 0.5);
+        border: 0;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        color: white;
+        &:not(:last-child){
+            margin-right: 1rem;
+        }
+    }
 }
