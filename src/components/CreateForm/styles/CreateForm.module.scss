@@ -1,4 +1,4 @@
-﻿.TaskContainer{
+﻿.TaskContainer, .Welcome{
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -6,25 +6,76 @@
     box-shadow: 0 0 0 0 rgba(0, 0, 0);
     padding: 1rem;
     border-radius: 0.5rem;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     max-width: 700px;
-    max-height: 400px;
+    height: fit-content;
     z-index: 100;
+    
+    &__close{
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background: none;
+        border: none;
+    }
     &__header{
         text-align: center;
         color: white;
         font-size: 2rem;
         font-weight: bold;
+        margin: 0 auto;
         margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 90%;
+        @media (max-height: 768px) {
+            max-width: none;
+        }
+    }
+    
+    &__bottom{
+        margin-left: auto;
+        margin-top: 1rem;
     }
     
     &__label{
         display: flex;
         flex-direction: column;
+        color: white;
+        &:not(:last-child){
+            margin-bottom: 1rem;
+        }
+        &Title{
+            margin-bottom: 0.5rem;
+            font-size: 20px;
+        }
+        &Input{
+            border: 2px solid white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: 0.3s;
+            &:focus{
+                outline: none;
+                border: 2px solid #34aadc;
+            }
+        }
+        &Textarea{
+            border: 2px solid white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            resize: none;
+            min-height: 100px;
+            transition: 0.3s;
+            &:focus{
+                outline: none;
+                border: 2px solid #34aadc;
+            }
+        }
     }
 }
 
@@ -37,4 +88,44 @@
     top: 0;
     z-index: 99;
     opacity: 0.4;
+}
+
+.Welcome{
+    position: static;
+    &__title{
+        font-size: 3rem;
+        @media (max-height: 768px) {
+            font-size: 2rem;
+        }
+    }
+    &__desc{
+        font-size: 1rem;
+        text-align: left;
+        margin-left: 1rem;
+        @media (max-height: 768px) {
+            margin-left: 0;
+        }
+        ul{
+            padding-left: 1rem;
+        }
+        li{
+            margin-bottom: 1rem;
+            margin-right: 0;
+        }
+    }
+}
+
+.Button{
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+    border-radius: 4px;
+    &_save{
+        background: #00d26c;
+        color: white;
+        &:hover{
+            opacity: 0.7;
+        }
+    }
 }

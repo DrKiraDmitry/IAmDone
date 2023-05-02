@@ -1,11 +1,10 @@
 ﻿.MainPage{
     display: flex;
     flex-direction: column;
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    margin-top: 6rem;
+    align-items: center;
+    padding: 2rem 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .GoalList{

@@ -6,6 +6,7 @@ import { useRootStore } from "../../utils/rootStoreUtils";
 import { observer } from "mobx-react-lite";
 import { ModalEnum } from "../../stores/MainPageStore";
 import { ChangeForm } from "../../components/CreateForm/ChangeForm";
+import { WelcomeForm } from "../../components/CreateForm/WelcomeForm";
 
 const Header = () => {
     const { mainPageStore: store } = useRootStore();
@@ -13,12 +14,8 @@ const Header = () => {
         <header className={styles.Header}>
             <div>
                 <button onClick={() => store.modalSwitch(ModalEnum.new)}>Новая</button>
-                <button onClick={() => store.copy()}>Сохранить</button>
-            </div>
-            <div>
+                <button onClick={() => store.copy()}>Скопировать</button>
                 <button onClick={() => store.randomExp()}>Случайный Опыт</button>
-            </div>
-            <div>
                 <button onClick={() => store.copy()}>F.A.Q</button>
             </div>
         </header>
@@ -60,21 +57,29 @@ export const MainPage = observer(() => {
 
     return (
         <div className={styles.MainPage}>
-            <Header />
-            {store.goals && (
-                <div className={styles.GoalList}>
-                    <GoalListHeader />
-                    {store.goals.map((el, i) => (
-                        <Goal
-                            key={el.id}
-                            order={i + 1}
-                            item={el}
-                            change={() => store.modalSwitch(ModalEnum.change, el.id)}
-                        />
-                    ))}
-                </div>
+            {!!store.goals.length ? (
+                <>
+                    <Header />
+                    {store.goals && (
+                        <div className={styles.GoalList}>
+                            <GoalListHeader />
+                            {store.goals.map((el, i) => (
+                                <Goal
+                                    key={el.id}
+                                    order={i + 1}
+                                    item={el}
+                                    change={() => store.modalSwitch(ModalEnum.change, el.id)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    <Modals />
+                </>
+            ) : (
+                <>
+                    <WelcomeForm callback={(x) => store.save(x)} />
+                </>
             )}
-            <Modals />
         </div>
     );
 });

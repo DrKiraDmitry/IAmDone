@@ -14,10 +14,10 @@ export const DeleteForm: FC<CreateFormType> = ({ onClose, onDelete }) => {
             </button>
             <div className={styles.TaskContainer__header}>Удалить?</div>
             <div className={styles.TaskContainer__bottom}>
-                <button className={styles.Button_delete} onClick={() => onDelete()}>
+                <button className={styles.Button_save + " " + styles.Button} onClick={() => onDelete()}>
                     Удалить
                 </button>
-                <button className={styles.Button_save} onClick={() => onClose()}>
+                <button className={styles.Button_save + " " + styles.Button} onClick={() => onClose()}>
                     Сохранить
                 </button>
             </div>

@@ -44,7 +44,7 @@ export const CreateForm: FC<CreateFormType> = ({ onClose, callback }) => {
                     </label>
                 </div>
                 <div className={styles.TaskContainer__bottom}>
-                    <button className={styles.Button_save} onClick={() => save()}>
+                    <button className={styles.Button_save + " " + styles.Button} onClick={() => save()}>
                         Сохранить
                     </button>
                 </div>
